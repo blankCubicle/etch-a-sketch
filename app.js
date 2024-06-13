@@ -1,13 +1,27 @@
 const display = document.querySelector('.display');
 const sizeOptions = document.querySelector('.grid-size');
+const drawOptions = document.querySelectorAll('.draw-options input');
 const columns = document.querySelector('#columns');
 const rows = document.querySelector('#rows');
 
 let dimensions = [16, 16];
+let randomColors = false;
+let opaqueColors = false;
 
 generateGrid(dimensions);
+
+drawOptions.forEach((input) =>
+  input.addEventListener('click', applyDrawOptions),
+);
 sizeOptions.addEventListener('input', applyGridSize);
 display.addEventListener('mouseover', paintSquare);
+
+function applyDrawOptions(e) {
+  const box = e.target;
+
+  if (box.id === 'random-color') return (randomColors = box.checked);
+  opaqueColors = box.checked;
+}
 
 function applyGridSize(e) {
   dimensions = [columns.value, rows.value];
@@ -31,13 +45,33 @@ function generateGrid(dimensions) {
   }
 }
 
+function getRGBA(square) {
+  const values = square.style.backgroundColor.match(/(\d+(\.\d+)?)/g);
+  if (values) return [...values].map(Number);
+  return false;
+}
+
+function randomRGB() {
+  return [...Array(3)].map(() => Math.round(Math.random() * 255));
+}
+
+function addRGBValues(a, b) {
+  return [...Array(3)].map((_, i) => Math.round((a[i] + b[i]) / 2));
+}
+
 function paintSquare(e) {
   const activeSquare = e.target;
   if (activeSquare === display) return;
 
-  let opacity = parseInt(activeSquare.dataset.opacity) || 0;
-  if (opacity < 100) opacity += 10;
+  const currentRGBA = getRGBA(activeSquare);
+  let newRGB = randomColors ? randomRGB() : [0, 0, 0];
+  let alpha = 0;
 
-  activeSquare.dataset.opacity = opacity;
-  activeSquare.style.backgroundColor = `rgba(0, 0, 0, ${opacity}%)`;
+  if (currentRGBA && !opaqueColors) {
+    newRGB = addRGBValues(currentRGBA, newRGB);
+    alpha = currentRGBA[3] ? currentRGBA[3] * 100 : 100;
+  }
+  if (alpha < 100) alpha = opaqueColors ? 100 : alpha + 10;
+
+  activeSquare.style.backgroundColor = `rgba(${newRGB}, ${alpha}%)`;
 }
