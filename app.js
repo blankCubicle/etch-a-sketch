@@ -1,4 +1,5 @@
 const display = document.querySelector('.display');
+const resetButton = document.querySelector('#reset');
 const sizeOptions = document.querySelector('.grid-size');
 const drawOptions = document.querySelectorAll('.draw-options input');
 const columns = document.querySelector('#columns');
@@ -10,6 +11,7 @@ let opaqueColors = false;
 
 generateGrid(dimensions);
 
+resetButton.addEventListener('click', () => generateGrid(dimensions));
 drawOptions.forEach((input) =>
   input.addEventListener('click', applyDrawOptions),
 );
