@@ -11,18 +11,25 @@ html {
 }
 
 .display {
+  --square-size: calc(600px / max(var(--columns), var(--rows)));
+
   display: flex;
   flex-flow: row wrap;
+  align-content: flex-start;
   margin: 20px;
   border: 0 solid lightblue;
   border-width: 1px 0 0 1px;
-  width: 801px;
-  height: 801px;
+  width: calc((var(--square-size) * var(--columns)) + 1px);
 }
 
 .display div {
   border: 0 solid lightblue;
   border-width: 0 1px 1px 0;
-  width: 6.25%;
-  height: 6.25%;
+  width: var(--square-size);
+  height: var(--square-size);
+}
+
+fieldset {
+  padding: 8px;
+  width: max-content;
 }
