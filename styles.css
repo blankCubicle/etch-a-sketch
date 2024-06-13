@@ -1,0 +1,28 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.display {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 20px;
+  border: 0 solid lightblue;
+  border-width: 1px 0 0 1px;
+  width: 801px;
+  height: 801px;
+}
+
+.display div {
+  border: 0 solid lightblue;
+  border-width: 0 1px 1px 0;
+  width: 6.25%;
+  height: 6.25%;
+}
