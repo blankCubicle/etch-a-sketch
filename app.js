@@ -1,21 +1,24 @@
 const display = document.querySelector('.display');
 const resetButton = document.querySelector('#reset');
+const linkCheckbox = document.querySelector('#link');
 const sizeOptions = document.querySelector('.grid-size');
 const drawOptions = document.querySelectorAll('.draw-options input');
 const columns = document.querySelector('#columns');
 const rows = document.querySelector('#rows');
 
 let dimensions = [16, 16];
+let linked = true;
 let randomColors = false;
 let opaqueColors = false;
 
 generateGrid(dimensions);
 
 resetButton.addEventListener('click', () => generateGrid(dimensions));
+linkCheckbox.addEventListener('click', setLinked);
+sizeOptions.addEventListener('input', applyGridSize);
 drawOptions.forEach((input) =>
   input.addEventListener('click', applyDrawOptions),
 );
-sizeOptions.addEventListener('input', applyGridSize);
 display.addEventListener('mouseover', paintSquare);
 
 function applyDrawOptions(e) {
@@ -25,7 +28,14 @@ function applyDrawOptions(e) {
   opaqueColors = box.checked;
 }
 
+function setLinked() {
+  linked = linkCheckbox.checked;
+  rows.disabled = linked ? true : false;
+}
+
 function applyGridSize(e) {
+  if (linked) rows.value = columns.value;
+
   dimensions = [columns.value, rows.value];
   [columns.nextElementSibling.value, rows.nextElementSibling.value] =
     dimensions;
