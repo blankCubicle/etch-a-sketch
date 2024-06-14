@@ -10,26 +10,103 @@ html {
   padding: 0;
 }
 
+body {
+  background-color: #1e1e2e;
+  color: #4c4f69;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 24px auto;
+  padding: 24px;
+  border-radius: 24px;
+  background-color: #d20f39;
+  width: 650px;
+}
+
+h1 {
+  color: #eff1f5;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 24px 0;
+  border-radius: 8px;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 8px;
+  border: 3px solid #ccd0da;
+  border-radius: 8px;
+  background-color: #eff1f5;
+}
+
+legend {
+  margin: auto;
+  padding: 1px 8px;
+  border: 3px solid #ccd0da;
+  border-bottom-width: 0;
+  border-radius: 8px;
+  background-color: #eff1f5;
+  font-weight: bold;
+}
+
+input {
+  margin-top: 4px;
+}
+
+output {
+  display: inline-block;
+  width: 1.5rem;
+}
+
+button {
+  padding: 12px 8px;
+  border: 3px solid #bcc0cc;
+  border-radius: 8px;
+  background-color: #ccd0da;
+  font-weight: bold;
+  color: #d20f39;
+
+  &:hover {
+    background-color: #bcc0cc;
+  }
+  &:active {
+    background-color: #acb0be;
+  }
+}
+
+.link {
+  margin-right: 8px;
+}
+
+.display-container {
+  border-radius: 8px;
+  padding: 8px;
+  background-color: #eff1f5;
+}
+
 .display {
   --square-size: calc(600px / max(var(--columns), var(--rows)));
 
   display: flex;
   flex-flow: row wrap;
   align-content: flex-start;
-  margin: 20px;
-  border: 0 solid lightblue;
+  border: 0 solid #ccd0da;
   border-width: 1px 0 0 1px;
-  width: calc((var(--square-size) * var(--columns)) + 1px);
+  width: calc((var(--square-size) * var(--columns)) + 2px);
 }
 
 .display div {
-  border: 0 solid lightblue;
+  border: 0 solid #ccd0da;
   border-width: 0 1px 1px 0;
   width: var(--square-size);
   height: var(--square-size);
-}
-
-fieldset {
-  padding: 8px;
-  width: max-content;
 }
